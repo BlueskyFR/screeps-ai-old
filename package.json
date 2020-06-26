@@ -8,13 +8,13 @@
     "lint": "tslint -p tsconfig.json \"src/**/*.ts\"",
     "build": "rollup -c",
     "push-main": "rollup -c --environment DEST:main",
-    "push-pserver": "rollup -c --environment DEST:pserver",
+    "push-cosmos": "rollup -c --environment DEST:cosmos",
     "push-sim": "rollup -c --environment DEST:sim",
     "test": "npm run test-unit",
     "test-unit": "rollup -c rollup.test-unit-config.js && mocha dist/test-unit.bundle.js",
     "test-integration": "echo 'See docs/in-depth/testing.md for instructions on enabling integration tests'",
     "watch-main": "rollup -cw --environment DEST:main",
-    "watch-pserver": "rollup -cw --environment DEST:pserver",
+    "watch-cosmos": "rollup -cw --environment DEST:cosmos",
     "watch-sim": "rollup -cw --environment DEST:sim"
   },
   "repository": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/screepers/screeps-typescript-starter#readme",
   "engines": {
-    "node": "10.x"
+    "node": ">=10.13.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.1.0",
@@ -38,7 +38,7 @@
     "@types/lodash": "3.10.2",
     "@types/mocha": "^5.2.5",
     "@types/node": "^13.13.1",
-    "@types/screeps": "^3.1.0",
+    "@types/screeps": "^3.1.2",
     "@types/sinon": "^5.0.5",
     "@types/sinon-chai": "^3.2.0",
     "chai": "^4.2.0",

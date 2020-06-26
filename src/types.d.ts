@@ -3,8 +3,10 @@
 // memory extension samples
 interface CreepMemory {
   role: string;
-  room: string;
-  working: boolean;
+  building?: boolean;
+  upgrading?: boolean;
+  //room: string;
+  //working: boolean;
 }
 
 interface Memory {
