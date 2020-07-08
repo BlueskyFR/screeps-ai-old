@@ -1,12 +1,14 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 
-import * as roleHarvester from "./role.harvester";
-import * as roleUpgrader from "./role.upgrader";
-import * as roleBuilder from "./role.builder";
+import * as roleHarvester from "./roles/Harvester";
+import * as roleUpgrader from "./roles/Upgrader";
+import * as roleBuilder from "./roles/Builder";
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
+  console.log(config.test);
+
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
@@ -27,10 +29,10 @@ export const loop = ErrorMapper.wrapLoop(() => {
 
   let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == "upgrader");
 
-  if (upgraders.length < 2) {
+  if (upgraders.length < 3) {
     let newName = "Upgrader" + Game.time;
     console.log("Spawning new upgrader: " + newName);
-    Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
+    Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName, {
       memory: { role: "upgrader" }
     });
   }

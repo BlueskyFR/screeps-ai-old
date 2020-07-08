@@ -20,3 +20,17 @@ declare namespace NodeJS {
     log: any;
   }
 }
+
+// Numbers are all between 0 and 1 (percentages)
+type Skills = { [bodypart in BodyPartConstant]: number };
+
+interface Role {
+  name: string;
+  skills: Skills;
+
+  // Returns whether the role was performed this tick or not
+  run: (creep: Creep) => boolean;
+}
+
+// Custom type
+type Dictionnary<T> = { [key: string]: T };
