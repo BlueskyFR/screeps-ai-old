@@ -1,8 +1,16 @@
 {
-  //"editor.renderWhitespace": "boundary",
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
   "files.encoding": "utf8",
-  "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
   "search.exclude": {
     "_book/**": true,
     ".rpt2_cache/**": true,
@@ -10,14 +18,5 @@
     "node_modules/**": true,
     "typings/**": true
   },
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "[json]": {
-    "editor.formatOnSave": true
-  },
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true
-  }
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }

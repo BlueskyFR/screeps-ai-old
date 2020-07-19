@@ -21,12 +21,14 @@ declare namespace NodeJS {
   }
 }
 
-// Numbers are all between 0 and 1 (percentages)
-type Skills = { [bodypart in BodyPartConstant]: number };
+// Can hold percentages or counts
+type BodyPartsHolder = Partial<Record<BodyPartConstant, number>>;
+// or
+//type BodyPartsHolder = { [bodypart in BodyPartConstant]?: number };
 
 interface Role {
   name: string;
-  skills: Skills;
+  bodyPartsRepartition: BodyPartsHolder;
 
   // Returns whether the role was performed this tick or not
   run: (creep: Creep) => boolean;

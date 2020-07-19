@@ -17,30 +17,30 @@ export const loop = ErrorMapper.wrapLoop(() => {
     }
   }
 
-  let harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == "harvester");
+  const harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == "harvester");
 
   if (harvesters.length < 2) {
-    let newName = "Harvester" + Game.time;
+    const newName = "Harvester" + Game.time;
     console.log("Spawning new harvester: " + newName);
     Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
       memory: { role: "harvester" }
     });
   }
 
-  let upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == "upgrader");
+  const upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == "upgrader");
 
   if (upgraders.length < 3) {
-    let newName = "Upgrader" + Game.time;
+    const newName = "Upgrader" + Game.time;
     console.log("Spawning new upgrader: " + newName);
     Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName, {
       memory: { role: "upgrader" }
     });
   }
 
-  let builders = _.filter(Game.creeps, (creep) => creep.memory.role == "builder");
+  const builders = _.filter(Game.creeps, (creep) => creep.memory.role == "builder");
 
   if (builders.length < 2) {
-    let newName = "Builder" + Game.time;
+    const newName = "Builder" + Game.time;
     console.log("Spawning new builder: " + newName);
     Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
       memory: { role: "builder" }
@@ -48,7 +48,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   }
 
   if (Game.spawns["MainSpawn"].spawning) {
-    let spawningCreep = Game.creeps[Game.spawns["MainSpawn"].spawning.name];
+    const spawningCreep = Game.creeps[Game.spawns["MainSpawn"].spawning.name];
     Game.spawns["MainSpawn"].room.visual.text(
       "🛠️" + spawningCreep.memory.role,
       Game.spawns["MainSpawn"].pos.x + 1,
@@ -57,8 +57,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
     );
   }
 
-  for (let name in Game.creeps) {
-    let creep = Game.creeps[name];
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name];
     if (creep.memory.role == "harvester") {
       if (!roleHarvester.run(creep)) roleUpgrader.run(creep);
     }
