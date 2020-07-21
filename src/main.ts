@@ -1,14 +1,10 @@
 import { ErrorMapper } from "utils/ErrorMapper";
 
-import * as roleHarvester from "./roles/Harvester";
-import * as roleUpgrader from "./roles/Upgrader";
-import * as roleBuilder from "./roles/Builder";
+import _ from "lodash";
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-  console.log(config.test);
-
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
@@ -20,7 +16,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   const harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == "harvester");
 
   if (harvesters.length < 2) {
-    const newName = "Harvester" + Game.time;
+    const newName = `Harvester ${Game.time}`;
     console.log("Spawning new harvester: " + newName);
     Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
       memory: { role: "harvester" }
@@ -30,17 +26,21 @@ export const loop = ErrorMapper.wrapLoop(() => {
   const upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == "upgrader");
 
   if (upgraders.length < 3) {
-    const newName = "Upgrader" + Game.time;
+    const newName = `Upgrader ${Game.time}`;
     console.log("Spawning new upgrader: " + newName);
-    Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName, {
-      memory: { role: "upgrader" }
-    });
+    Game.spawns["MainSpawn"].spawnCreep(
+      [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+      newName,
+      {
+        memory: { role: "upgrader" }
+      }
+    );
   }
 
   const builders = _.filter(Game.creeps, (creep) => creep.memory.role == "builder");
 
   if (builders.length < 2) {
-    const newName = "Builder" + Game.time;
+    const newName = `Builder ${Game.time}`;
     console.log("Spawning new builder: " + newName);
     Game.spawns["MainSpawn"].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
       memory: { role: "builder" }
@@ -57,7 +57,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
     );
   }
 
-  for (const name in Game.creeps) {
+  /*for (const name in Game.creeps) {
     const creep = Game.creeps[name];
     if (creep.memory.role == "harvester") {
       if (!roleHarvester.run(creep)) roleUpgrader.run(creep);
@@ -68,5 +68,5 @@ export const loop = ErrorMapper.wrapLoop(() => {
     if (creep.memory.role == "builder") {
       if (!roleBuilder.run(creep)) roleUpgrader.run(creep);
     }
-  }
+  }*/
 });

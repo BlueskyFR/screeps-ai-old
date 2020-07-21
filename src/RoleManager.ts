@@ -14,7 +14,10 @@ export default {
     budget: number
   ): BodyPartConstant[] | false {
     // Compute the minimum cost if each specified part is used only once
-    const totalMinCost = keys(desiredRepartition).reduce((acc, bodypart) => acc + BODYPART_COST[bodypart], 0);
+    const totalMinCost = keys(desiredRepartition).reduce(
+      (acc, bodypart) => acc + BODYPART_COST[bodypart],
+      0
+    );
     // We return false if this cost is not affordable
     if (totalMinCost > spawn.energy) return false;
 
@@ -26,12 +29,16 @@ export default {
       const totalCount = _(partCounts).values().sum();
       // eslint is unable to see that all props have been set to 1, so we can safely
       // assert that no value is undefined by using the "!" operator
-      const actualRepartition: BodyPartsHolder = _.mapValues(partCounts, (count) => count! / totalCount);
+      const actualRepartition: BodyPartsHolder = _.mapValues(
+        partCounts,
+        (count) => count! / totalCount
+      );
 
       // Compute diff
       const diff: BodyPartsHolder = _.mapValues(
         actualRepartition,
-        (actualPercentage, bodyPart: BodyPartConstant) => desiredRepartition[bodyPart]! - actualPercentage!
+        (actualPercentage, bodyPart: BodyPartConstant) =>
+          desiredRepartition[bodyPart]! - actualPercentage!
       );
 
       // Sort

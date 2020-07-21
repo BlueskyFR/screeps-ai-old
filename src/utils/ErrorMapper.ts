@@ -1,12 +1,13 @@
 import { SourceMapConsumer } from "source-map";
+import _ from "lodash";
 
 export class ErrorMapper {
   // Cache consumer
   private static _consumer?: SourceMapConsumer;
 
-  public static get consumer(): SourceMapConsumer {
+  public static async getConsumer(): Promise<SourceMapConsumer> {
     if (this._consumer == null) {
-      this._consumer = new SourceMapConsumer(require("main.js.map"));
+      this._consumer = await new SourceMapConsumer(require("main.js.map"));
     }
 
     return this._consumer;
@@ -30,7 +31,7 @@ export class ErrorMapper {
       return this.cache[stack];
     }
 
-    const re = /^\s+at\s+(.+?\s+)?\(?([0-z._\-\\\/]+):(\d+):(\d+)\)?$/gm;
+    const re = /^\s+at\s+(.+?\s+)?\(?([0-z._\-\\/]+):(\d+):(\d+)\)?$/gm;
     let match: RegExpExecArray | null;
     let outStack = error.toString();
 
@@ -38,7 +39,7 @@ export class ErrorMapper {
       if (match[2] === "main") {
         const pos = this.consumer.originalPositionFor({
           column: parseInt(match[4], 10),
-          line: parseInt(match[3], 10)
+          line: parseInt(match[3], 10),
         });
 
         if (pos.line != null) {
@@ -77,7 +78,11 @@ export class ErrorMapper {
             const message = `Source maps don't work in the simulator - displaying original error`;
             console.log(`<span style='color:red'>${message}<br>${_.escape(e.stack)}</span>`);
           } else {
-            console.log(`<span style='color:red'>${_.escape(this.sourceMappedStackTrace(e))}</span>`);
+            //TODO: put some async here:
+            //this.sourceMappedStackTrace(e).then...
+            console.log(
+              `<span style='color:red'>${_.escape(this.sourceMappedStackTrace(e))}</span>`
+            );
           }
         } else {
           // can't handle it
